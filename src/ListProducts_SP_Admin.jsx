@@ -12,6 +12,7 @@ const ListProducts_SP_Admin = () => {
       .from("product1")
       .select("*")
       .order("id", { ascending: true });
+
     if (error) console.error("Lỗi:", error.message);
     else setProducts(data);
   };
@@ -29,52 +30,65 @@ const ListProducts_SP_Admin = () => {
   };
 
   return (
-    <div className="container">
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <div className="table-actions">
+    <div className="admin-container">
+      <div className="admin-card">
+        <header className="admin-header">
+          <div>
+            <h1 className="admin-title">📦 Quản lý sản phẩm</h1>
+            <p className="admin-subtitle">Danh sách tất cả sản phẩm hiện có</p>
+          </div>
+
           <button
-            className="btn green"
+            className="btn-add"
             onClick={() => navigate("/admin/edit/new")}
           >
-            ➕ Thêm mới
+            ➕ Thêm sản phẩm
           </button>
-        </div>
+        </header>
 
-        <div>
-          <h2>Quản lý sản phẩm (Admin)</h2>
-
-          {/* Nút thêm mới trên đầu bảng */}
-
-          <table className="product-table">
+        <div className="table-wrap">
+          <table className="prod-table">
             <thead>
               <tr>
-                <th>Hình ảnh</th>
-                <th>Tên</th>
+                <th>ID</th>
+                <th>Ảnh</th>
+                <th>Tên sản phẩm</th>
                 <th>Giá</th>
                 <th>Đánh giá</th>
                 <th>Thao tác</th>
               </tr>
             </thead>
+
             <tbody>
               {products.map((p) => (
                 <tr key={p.id}>
-                  <td style={{ width: "100px" }}>
-                    <img src={p.image} alt={p.title} className="thumb" />
-                  </td>
-                  <td style={{ width: "500px" }}>{p.title}</td>
-                  <td>{p.price}</td>
+                  <td>{p.id}</td>
+
                   <td>
-                    ⭐ {p.rating_rate} ({p.rating_count})
+                    <img src={p.image} alt={p.title} className="product-img" />
                   </td>
-                  <td style={{ width: "150px" }}>
+
+                  <td className="prod-name">{p.title}</td>
+
+                  <td className="prod-price">
+                    {p.price.toLocaleString("vi-VN")} đ
+                  </td>
+
+                  <td className="prod-rating">
+                    ⭐ {p.rating_rate}{" "}
+                    <span className="rating-count">({p.rating_count})</span>
+                  </td>
+
+                  <td className="actions">
                     <button
-                      className="btn yellow"
+                      className="btn-edit"
                       onClick={() => navigate(`/admin/edit/${p.id}`)}
                     >
                       Sửa
                     </button>
+
                     <button
-                      className="btn red"
+                      className="btn-delete"
                       onClick={() => handleDelete(p.id)}
                     >
                       Xóa
@@ -84,6 +98,10 @@ const ListProducts_SP_Admin = () => {
               ))}
             </tbody>
           </table>
+
+          {products.length === 0 && (
+            <div className="empty">Không có sản phẩm nào.</div>
+          )}
         </div>
       </div>
     </div>
