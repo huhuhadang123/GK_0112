@@ -8,6 +8,8 @@ import ListSanPham from "./ListSanPham";
 // @ts-ignore
 import Trang2 from "./Trang2";
 // @ts-ignore
+import Trang1 from "./Trang1";
+// @ts-ignore
 import ListProduct from "./ListProduct";
 // @ts-ignore
 import Chitietsanpham from "./Chitietsanpham";
@@ -37,6 +39,7 @@ const App = () => {
           <Route path="ListProduct" element={<ListProduct />} />
           <Route path="ProductDetail/:id" element={<ProductDetail />} />
           <Route path="LoginPage" element={<LoginPage />} />
+          <Route path="Trang1" element={<Trang1 />} />
           <Route
             path="ListProducts_SP_Admin"
             element={<ListProducts_SP_Admin />}

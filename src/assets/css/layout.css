@@ -1,106 +1,395 @@
-/* Cài đặt chung */
-body {
+/* =====================================================================
+  1. CẤU TRÚC & BIẾN CSS (ĐÃ TINH CHỈNH CUỐI CÙNG)
+===================================================================== */
+:root {
+  /* Màu sắc Chủ đạo: Gradient Đỏ-Cam Tươi và Nổi bật hơn */
+  --color-primary-start: #ff7551; /* Đỏ Cam Sáng */
+  --color-primary-end: #e53982; /* Hồng Magenta Đậm */
+  --color-accent: #3498db;
+
+  --color-text-dark: #222222;
+  --color-text-light: #ffffff;
+  --color-background: #f0f2f5;
+
+  /* Spacing & Kích thước */
+  --spacing-sm: 10px;
+  --spacing-md: 20px;
+  --spacing-lg: 40px;
+  --header-height: 90px;
+
+  /* Hiệu ứng MỚI: Neumorphism Shadow (TINH TẾ VÀ SÂU HƠN) */
+  --transition-speed: 0.3s;
+  /* Bóng Neumorphism chính: Sáng hơn và tối hơn hòa quyện */
+  --shadow-soft: 8px 8px 20px rgba(174, 174, 192, 0.4), -8px -8px 20px #ffffff;
+  /* Bóng khi nhấn xuống */
+  --shadow-inset: inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+    inset -2px -2px 5px #ffffff;
+  --shadow-header: 0 6px 20px rgba(0, 0, 0, 0.1); /* Đổ bóng Header rõ nét hơn */
+}
+
+/* ============================================
+  2. RESET & GLOBAL
+============================================ */
+* {
   margin: 0;
-  font-family: "Times New Roman", Times, serif;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif; /* Đảm bảo font Poppins được ưu tiên */
 }
 
-/* Banner đỏ chứa logo và menu */
+body {
+  background: var(--color-background);
+  color: var(--color-text-dark);
+  line-height: 1.6;
+  transition: background-color var(--transition-speed);
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-text-dark);
+  transition: all var(--transition-speed) ease;
+}
+
+ul {
+  list-style: none;
+}
+
+/* =====================================================================
+  3. HEADER: GLASSMORPHISM & STICKY
+===================================================================== */
+.header {
+  width: 100%;
+  /* Glassmorphism Tinh tế */
+  background: rgba(255, 255, 255, 0.98); /* Độ trong suốt rất thấp */
+  backdrop-filter: blur(15px); /* Tăng độ mờ */
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: none; /* Loại bỏ border-bottom, chỉ dùng shadow */
+  box-shadow: var(--shadow-header);
+  /* Sticky */
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+/* ------------------------------------
+  3.1 TOP BAR - Gradient
+------------------------------------ */
+.topbar {
+  background: linear-gradient(
+    135deg,
+    /* Góc nghiêng hiện đại hơn */ var(--color-primary-start),
+    var(--color-primary-end)
+  );
+  padding: 10px var(--spacing-lg); /* Tăng padding dọc */
+}
+
+.topnav-list {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+}
+
+.topnav-list li a {
+  color: var(--color-text-light);
+  font-size: 14px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.5px;
+  display: flex; /* Dùng flex để căn icon và chữ */
+  align-items: center;
+}
+
+.topnav-list li a:hover {
+  color: var(--color-background);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Tăng hiệu ứng sáng */
+}
+
+.topnav-list i {
+  font-size: 18px;
+  margin-right: 6px;
+  color: var(--color-background); /* Icon trắng rõ nét hơn */
+}
+
+/* ------------------------------------
+  3.2 BANNER (Logo, Menu, Search)
+------------------------------------ */
 .banner {
-  height: 126px;
-  background-color: #b22d30; /* Màu nền đỏ */
-  display: flex;
-  justify-content: space-between; /* Các phần tử trong banner được phân bố đều */
-  align-items: center; /* Canh giữa các phần tử theo chiều dọc */
-  padding: 0 20px;
-}
-
-/* Logo nằm trong banner, ở bên trái */
-#logo-container {
-  display: flex;
-  align-items: center; /* Căn giữa logo theo chiều dọc */
+  display: grid;
+  grid-template-columns: 1.2fr 2.5fr 1.3fr;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: 15px var(--spacing-lg);
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .logo {
-  max-width: 500px;
-  height: auto;
+  height: var(--header-height);
+  width: auto;
   object-fit: contain;
+  transition: transform 0.3s, box-shadow 0.3s;
+  /* Thêm bóng Neumorphism nhẹ cho logo */
+  border-radius: 10px;
+  box-shadow: var(--shadow-soft);
 }
 
-/* Menu trái nằm ngoài logo */
-.menutrai {
+.logo:hover {
+  transform: scale(1.05); /* Tăng hiệu ứng hover */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ------------------------------------
+  3.3 MENU Chính (SỬA LỖI DÍNH CHỮ VÀ LÀM ĐẸP)
+------------------------------------ */
+#divmenutrai {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+#menutrai ul.menutrai {
+  display: flex !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  max-width: 800px !important; /* Tăng max-width để menu rộng rãi hơn */
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Class chia đều không gian cho các mục menu */
+#menutrai ul.menutrai li.menutrai-list__item {
+  flex: 1 !important;
+  text-align: center !important;
+  padding: 0 18px !important; /* Tăng padding lên 18px để cách xa nhau tối đa */
+  white-space: nowrap;
+}
+
+#menutrai ul.menutrai li.menutrai-list__item a.menutrai-link {
+  display: block !important;
+  position: relative !important;
+  font-size: 16px !important;
+  font-weight: 600 !important; /* Giảm độ đậm chữ một chút, hiện đại hơn */
+  padding: 12px 0 !important;
+  letter-spacing: 1px !important;
+}
+
+.menutrai-link:hover {
+  color: var(--color-primary-end);
+  transform: translateY(-2px);
+}
+
+/* Hiệu ứng gạch dưới "Laser Line" Gradient */
+.menutrai-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0px;
+  width: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary-start),
+    var(--color-primary-end)
+  );
+  border-radius: 4px;
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.4s; /* Curve mượt hơn */
+}
+
+.menutrai-link:hover::after {
+  width: 95%; /* Dài gần hết */
+}
+
+/* ------------------------------------
+  3.4 SEARCH BAR - Soft UI/Neumorphism (TINH CHỈNH CUỐI CÙNG)
+------------------------------------ */
+.search-container {
   display: flex;
-  flex-direction: row; /* Sắp xếp các mục menu theo chiều ngang */
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+  justify-content: flex-end;
 }
 
-.menutrai li {
-  margin: 0 15px; /* Khoảng cách giữa các mục menu */
-}
-
-.menutrai a {
-  color: white; /* Màu chữ trắng */
-  text-decoration: none;
-  font-size: 16px;
-  padding: 10px;
-  display: block;
-  transition: background-color 0.3s ease;
-  font-weight: normal;
-}
-
-.menutrai a:hover {
-  background-color: #5426d1;
-  font-weight: bold;
-}
-
-.menutrai a:visited {
-  font-weight: 700;
-}
-
-/* Tìm kiếm (nằm trong banner) */
-#search {
+.search-form {
   display: flex;
   align-items: center;
+  background: var(--color-background);
+  border-radius: 40px;
+  padding: 5px 8px;
+  max-width: 350px;
+  width: 100%;
+  box-shadow: var(--shadow-soft); /* Bóng mặc định */
+  border: none;
+  transition: box-shadow var(--transition-speed),
+    transform var(--transition-speed);
+}
+
+.search-form:focus-within {
+  box-shadow: var(--shadow-inset); /* Hiệu ứng nhấn xuống rất rõ nét */
+  transform: scale(0.99); /* Nhấn chìm nhẹ */
 }
 
 .search-input {
-  padding: 5px 15px;
-  font-size: 14px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  margin-right: 10px;
-  width: 200px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  padding: 8px;
+  flex: 1;
+  background: transparent;
 }
 
-.search-btn {
-  padding: 5px 15px;
-  font-size: 14px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-}
-#search-cart {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* khoảng cách giữa các phần */
-}
-
-.cart-container {
-  position: relative;
-  cursor: pointer;
-}
-
-.cart-count {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: red;
-  color: white;
-  font-size: 12px;
-  width: 18px;
-  height: 18px;
+.search-button {
+  background: linear-gradient(
+    140deg,
+    var(--color-primary-start),
+    var(--color-primary-end)
+  );
+  border: none;
+  padding: 12px; /* Tăng padding nút */
   border-radius: 50%;
+  color: var(--color-text-light);
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(255, 65, 108, 0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.search-button:hover {
+  transform: scale(1.18) rotate(3deg); /* Tăng hiệu ứng nổi bật */
+  box-shadow: 0 10px 30px rgba(255, 65, 108, 0.7);
+}
+
+/* =====================================================================
+  4. CONTENT & OUTLET
+===================================================================== */
+.outlet-container {
+  max-width: 1400px;
+  margin: var(--spacing-lg) auto;
+  padding: 0 var(--spacing-lg);
+  min-height: 60vh;
+}
+
+/* =====================================================================
+  5. FOOTER: DARK MODE & TYPOGRAPHY
+===================================================================== */
+.footer-clothing {
+  background: var(--color-dark-bg);
+  color: #c9c9c9;
+  padding: var(--spacing-lg) 0 0;
+  border-top: 5px solid var(--color-primary-end);
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg) var(--spacing-lg);
+}
+
+.footer-section h3 {
+  color: var(--color-primary-start);
+  font-size: 22px;
+  margin-bottom: var(--spacing-md);
+  padding-left: 0;
+  border-left: none;
+  border-bottom: 2px solid var(--color-primary-start);
+  display: inline-block;
+  padding-bottom: 5px;
+  letter-spacing: 0.5px;
+  font-weight: var(--font-weight-bold);
+}
+
+.footer-section p {
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.footer-section li {
+  margin: var(--spacing-sm) 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+}
+
+.footer-section i {
+  color: var(--color-primary-start);
+  margin-right: 10px;
+  font-size: 16px;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.footer-section a {
+  color: #c9c9c9;
+  font-size: 15px;
+}
+
+.footer-section a:hover {
+  color: var(--color-accent);
+  padding-left: 8px;
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--spacing-sm) 0;
+  font-size: 13px;
+  color: #888;
+  background-color: #0d0d0d;
+}
+
+/* =====================================================================
+  6. RESPONSIVE DESIGN: Mobile First & Breakpoints
+===================================================================== */
+@media (max-width: 992px) {
+  .banner {
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: var(--spacing-sm);
+  }
+
+  #menutrai .menutrai {
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 500px;
+  }
+
+  .menutrai-link {
+    font-size: 15px;
+    padding: 8px 0;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .banner {
+    grid-template-columns: 1fr;
+    padding: 10px var(--spacing-sm);
+  }
+
+  .logo-container,
+  .search-container {
+    justify-content: center;
+  }
+
+  .search-form {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .menutrai-link {
+    font-size: 14px;
+  }
+
+  .topnav-list {
+    gap: var(--spacing-sm);
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .footer-section h3 {
+    font-size: 18px;
+  }
 }
