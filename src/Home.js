@@ -3,12 +3,12 @@ import "./css/main.css";
 import { useNavigate } from "react-router-dom";
 import ListProduct from "./ListProduct";
 
-// 🖼 Banner quảng cáo (Giữ nguyên các file ảnh gốc)
+// Banner
 import banner1 from "./assets/images/dhnam.avif";
 import banner2 from "./assets/images/STUHRLING.jpg";
 import banner3 from "./assets/images/dhcaocap.jpg";
 
-// 🧢 Ảnh sản phẩm mẫu (Giữ nguyên các file ảnh gốc, chỉ thay đổi tên biến)
+// Product images
 import watchImage1 from "./assets/images/Huboler.jpg";
 import watchImage2 from "./assets/images/KOI.avif";
 import watchImage3 from "./assets/images/CITIZEN.avif";
@@ -17,29 +17,33 @@ import watchImage4 from "./assets/images/CASIO.avif";
 const Home = () => {
   const banners = [banner1, banner2, banner3];
   const [index, setIndex] = useState(0);
+  const [animDirection, setAnimDirection] = useState("next");
+
   const navigate = useNavigate();
 
-  // 🕒 Tự động đổi ảnh sau 2 giây
+  // Auto slide
   useEffect(() => {
-    const interval = setInterval(() => {
+    const timer = setTimeout(() => {
       nextSlide();
-    }, 2000);
-    return () => clearInterval(interval);
+    }, 3500);
+    return () => clearTimeout(timer);
   }, [index]);
 
-  // 👉 Chuyển ảnh tiếp theo
   const nextSlide = () => {
-    setIndex((prevIndex) => (prevIndex + 1) % banners.length);
+    setAnimDirection("next");
+    setIndex((prev) => (prev + 1) % banners.length);
   };
 
-  // 👈 Chuyển ảnh trước đó
   const prevSlide = () => {
-    setIndex((prevIndex) =>
-      prevIndex === 0 ? banners.length - 1 : prevIndex - 1
-    );
+    setAnimDirection("prev");
+    setIndex((prev) => (prev === 0 ? banners.length - 1 : prev - 1));
   };
 
-  // 📦 Danh sách sản phẩm đồng hồ nổi bật (Đã thay đổi dữ liệu sản phẩm)
+  const goToSlide = (i) => {
+    setAnimDirection(i > index ? "next" : "prev");
+    setIndex(i);
+  };
+
   const products = [
     {
       id: 1,
@@ -49,7 +53,7 @@ const Home = () => {
     },
     {
       id: 2,
-      name: "Koi K001.403.642.05.01.01 ",
+      name: "Koi K001.403.642.05.01.01",
       price: "2.130.000 ₫",
       image: watchImage2,
     },
@@ -71,35 +75,54 @@ const Home = () => {
     <div className="home-page">
       <h1 className="title">⌚ Store Đồng Hồ Chính Hãng ⌚</h1>
 
-      {/* 🖼 Banner quảng cáo đồng hồ */}
+      {/* Banner */}
       <div className="slideshow-container">
-        <div className="slideshow-wrapper">
-          <button className="arrow left" onClick={prevSlide}>
-            ❮
-          </button>
-          <img
-            src={banners[index]}
-            alt="Quảng cáo đồng hồ" // Đã đổi alt text
-            className="slideshow-image"
-          />
-          <button className="arrow right" onClick={nextSlide}>
-            ❯
-          </button>
+        <button className="arrow left" onClick={prevSlide}>
+          ❮
+        </button>
+
+        <div className="slide-frame">
+          {banners.map((img, i) => (
+            <img
+              key={i}
+              src={img}
+              alt="Banner quảng cáo"
+              className={`slide-image 
+                ${i === index ? "active" : ""} 
+                ${animDirection === "next" ? "slide-next" : "slide-prev"}
+              `}
+            />
+          ))}
+        </div>
+
+        <button className="arrow right" onClick={nextSlide}>
+          ❯
+        </button>
+
+        {/* Dấu chấm Indicator */}
+        <div className="indicator-container">
+          {banners.map((_, i) => (
+            <div
+              key={i}
+              onClick={() => goToSlide(i)}
+              className={`indicator-dot ${index === i ? "active" : ""}`}
+            ></div>
+          ))}
         </div>
       </div>
 
-      {/* 🌟 Sản phẩm đồng hồ nổi bật */}
       <h2 className="section-title">✨ Đồng Hồ Nổi Bật ✨</h2>
+
       <div className="product-list">
         {products.map((item) => (
           <div
             className="product-card"
             key={item.id}
             onClick={() => navigate(`/sanpham/${item.id}`)}
-            style={{ cursor: "pointer" }}
           >
-            {/* Vẫn sử dụng ảnh giày/banner cũ, nhưng trong ngữ cảnh mới */}
-            <img src={item.image} alt={item.name} />
+            <div className="product-image-wrapper">
+              <img src={item.image} alt={item.name} />
+            </div>
             <h3>{item.name}</h3>
             <p className="price">{item.price}</p>
             <button className="btn-buy">Mua ngay</button>

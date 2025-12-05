@@ -1,36 +1,36 @@
-import sp1 from "../assets/images/NikeAirZoom.jpg";
-import sp2 from "../assets/images/banner2.jpg";
-import sp3 from "../assets/images/banner3.jpg";
-import sp4 from "../assets/images/ConverseClassic.jpg";
+import sp1 from "../assets/images/PHILIPPEAUGUSTEPA5025F.jpg";
+import sp2 from "../assets/images/DiamondDDM1010-2TG.jpg";
+import sp3 from "../assets/images/AtlanticSwiss.jpg";
+import sp4 from "../assets/images/Brunosohnle.jpg";
 export const products = [
   {
     id: 1,
-    title: "Nike Air Zoom",
-    price: 109.95,
+    title: "Đồng hồ PHILIPPE AUGUSTE PA5025F",
+    price: 309.95,
     description: "Your perfect pack for everyday use.",
     category: "men's clothing",
     image: sp1,
   },
   {
     id: 2,
-    title: "Adidas UtralBoost",
-    price: 120,
+    title: "Đồng hồ Diamond D DM1010-2TG",
+    price: 223.74,
     description: "Comfortable and durable shoes.",
     category: "men's clothing",
     image: sp2,
   },
   {
     id: 3,
-    title: "Puma Runner",
-    price: 89.99,
+    title: "Đồng hồ Atlantic Swiss AT-29036.45.31MB",
+    price: 401.21,
     description: "Lightweight running sneakers.",
     category: "men's clothing",
     image: sp3,
   },
   {
     id: 4,
-    title: "Converse Classic",
-    price: 89.99,
+    title: "Đồng hồ Bruno sohnle BS-17-33185-950",
+    price: 524.46,
     description: "Lightweight running sneakers.",
     category: "men's clothing",
     image: sp4,

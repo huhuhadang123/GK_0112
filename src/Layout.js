@@ -1,33 +1,29 @@
 import "./assets/css/layout.css";
-import logo from "./assets/images/logo2.png";
+import logo from "./assets/images/logohaidang.jpg";
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
 
 const Layout = () => {
   return (
     <>
       <header id="header" className="header">
-        {/* Link Font Awesome */}
+        {/* Font Awesome */}
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
           crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
         />
 
         <div>
-          {/* THANH TOP BAR */}
+          {/* TOP BAR */}
           <div id="topbar" className="topbar">
             <nav id="topnav">
               <ul className="topnav-list">
-                {/* Giỏ Hàng */}
                 <li>
                   <a className="nav-link cart-link" href="/giohang">
                     <i className="fa-solid fa-cart-plus"></i>
                   </a>
                 </li>
-                {/* Quản lý Sản phẩm */}
+
                 <li>
                   <a
                     className="nav-link admin-link"
@@ -36,7 +32,7 @@ const Layout = () => {
                     QUẢN LÝ SẢN PHẨM
                   </a>
                 </li>
-                {/* Đăng Nhập */}
+
                 <li>
                   <a className="nav-link login-link" href="/LoginPage">
                     <i className="fas fa-user"></i>
@@ -46,35 +42,48 @@ const Layout = () => {
             </nav>
           </div>
 
-          {/* BANNER CHÍNH - Logo, Menu Chính, Tìm kiếm */}
+          {/* BANNER CHÍNH */}
           <div id="banner" className="banner">
-            {/* Cột 1: Logo */}
+            {/* Cột logo */}
             <div className="logo-container">
               <a href="/">
                 <img src={logo} alt="Logo" className="logo" />
               </a>
             </div>
 
-            {/* Cột 2: Menu Chính (Menutrai) - ĐÃ SỬA CHỮA LỖI DÍNH CHỮ */}
+            {/* MENU TRÁI */}
             <div id="divmenutrai">
               <nav id="menutrai">
                 <ul className="menutrai">
-                  {/* QUAN TRỌNG: ĐÃ THÊM class menutrai-list__item vào đây */}
                   <li className="menutrai-list__item">
                     <a href="/" className="menutrai-link">
                       TRANG CHỦ
                     </a>
                   </li>
-                  <li className="menutrai-list__item">
+
+                  {/* MENU SẢN PHẨM — CÓ SUBMENU */}
+                  <li className="menutrai-list__item menu-has-child">
                     <a className="menutrai-link" href="/trang1">
                       SẢN PHẨM
                     </a>
+
+                    {/* SUBMENU */}
+                    <ul className="submenu">
+                      <li>
+                        <a href="/dongho-nam">Đồng hồ Nam</a>
+                      </li>
+                      <li>
+                        <a href="/dongho-nu">Đồng hồ Nữ</a>
+                      </li>
+                    </ul>
                   </li>
+
                   <li className="menutrai-list__item">
                     <a className="menutrai-link" href="/trang2">
                       SINH VIÊN
                     </a>
                   </li>
+
                   <li className="menutrai-list__item">
                     <a className="menutrai-link" href="/Listsanpham">
                       DANH SÁCH SẢN PHẨM
@@ -84,7 +93,7 @@ const Layout = () => {
               </nav>
             </div>
 
-            {/* Cột 3: Thanh Tìm kiếm */}
+            {/* TÌM KIẾM */}
             <div className="search-container">
               <form className="search-form">
                 <input
@@ -110,18 +119,19 @@ const Layout = () => {
       <footer className="footer-clothing">
         <div className="footer-container">
           <div className="footer-section info">
-            <h3>Store Quần Áo Chính Hãng</h3>
+            <h3>Store Đồng Hồ Chính Hãng</h3>
             <p>
-              Chuyên cung cấp Quần Áo & Phụ Kiện thời trang cao cấp, cam kết
-              100% hàng thật, chất lượng đảm bảo. Đổi trả miễn phí trong 7 ngày.
+              Chuyên cung cấp Đồng Hồ & Phụ Kiện cao cấp từ các thương hiệu hàng
+              đầu. Cam kết 100% chính hãng & bảo hành đầy đủ.
             </p>
           </div>
+
           <div className="footer-section contact">
             <h3>Liên hệ</h3>
             <ul>
               <li>
                 <i className="fas fa-map-marker-alt"></i> số 33 đường Vĩnh Viễn,
-                phường Vườn Lài, Quận 10, Thành phố Hồ Chí Minh
+                phường Vườn Lài, Quận 10, TP.HCM
               </li>
               <li>
                 <i className="fas fa-phone"></i> 0901 234 567
@@ -131,44 +141,47 @@ const Layout = () => {
               </li>
             </ul>
           </div>
+
           <div className="footer-section links">
             <h3>Hỗ trợ</h3>
             <ul>
               <li>
-                <a href="./">Trang chủ</a>
+                <a href="/">Trang chủ</a>
               </li>
               <li>
-                <a href="/trang1">Sản Phẩm</a>
+                <a href="/trang1">Bộ Sưu Tập</a>
               </li>
               <li>
-                <a href="/trang2">Sinh Viên</a>
+                <a href="/trang2">Tin tức & Blog</a>
               </li>
               <li>
                 <a href="/Listsanpham">Danh Sách Sản Phẩm</a>
               </li>
             </ul>
           </div>
+
           <div className="footer-section categories">
             <h3>Danh mục</h3>
             <ul>
               <li>
-                <a href="#">Áo (Tops)</a>
+                <a href="/dongho-nam">Đồng hồ Nam</a>
               </li>
               <li>
-                <a href="#">Quần (Bottoms)</a>
+                <a href="/dongho-nu">Đồng hồ Nữ</a>
               </li>
               <li>
-                <a href="#">Phụ kiện</a>
+                <a href="#">Phụ kiện Dây đeo</a>
               </li>
               <li>
-                <a href="#">Hàng mới về</a>
+                <a href="#">Thương hiệu</a>
               </li>
             </ul>
           </div>
         </div>
+
         <div className="footer-bottom">
           <p>
-            &copy; 2025 Store Quần Áo. All Rights Reserved. | Thiết kế bởi Đăng
+            &copy; 2025 Store Đồng Hồ. All Rights Reserved. | Thiết kế bởi Đăng
             💙
           </p>
         </div>
@@ -176,4 +189,5 @@ const Layout = () => {
     </>
   );
 };
+
 export default Layout;

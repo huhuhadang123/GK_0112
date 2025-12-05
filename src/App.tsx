@@ -1,4 +1,6 @@
 import "./styles.css";
+
+// Import Components
 // @ts-ignore
 import Home from "./Home";
 // @ts-ignore
@@ -6,23 +8,25 @@ import Layout from "./Layout";
 // @ts-ignore
 import ListSanPham from "./ListSanPham";
 // @ts-ignore
-import Trang2 from "./Trang2";
-// @ts-ignore
-import Trang1 from "./Trang1";
-// @ts-ignore
 import ListProduct from "./ListProduct";
 // @ts-ignore
-import Chitietsanpham from "./Chitietsanpham";
-// @ts-ignore
 import ListProducts_SP from "./ListProducts_SP";
+// @ts-ignore
+import Chitietsanpham from "./Chitietsanpham";
 // @ts-ignore
 import ProductDetail from "./ProductDetail";
 // @ts-ignore
 import LoginPage from "./LoginPage";
 // @ts-ignore
+import Trang1 from "./Trang1";
+// @ts-ignore
+import Trang2 from "./Trang2";
+// @ts-ignore
 import ListProducts_SP_Admin from "./ListProducts_SP_Admin";
 // @ts-ignore
 import EditProduct from "./EditProduct";
+
+// Import Routing
 // @ts-ignore
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
